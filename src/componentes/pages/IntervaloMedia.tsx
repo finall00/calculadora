@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { calculateMedia } from "../../lib/CalcMedia";
 import Botao from "../Button";
 import Input from "../Input";
+import { calculateMedia } from "@/lib/IntervaloConfiancaMedia";
+import { Table, TableBody, TableCell, TableHeader, TableRow } from "@/components/ui/table";
 
 
 export default function IntervaloMedia(){
@@ -89,19 +90,45 @@ export default function IntervaloMedia(){
             <Botao type="submit">Calcular</Botao>
             <Botao onClick={handleReset} type="button">Refazer</Botao>
           </form>
-          <section>
-          {mediaData ? (
-                  <pre>{JSON.stringify(mediaData)}</pre>
-              ):(
-                <p>nada</p>
+          {erroData &&(
+             <section className="mt-3">
+             <div className="border border-neutral-300 rounded-lg p-4">
+             <Table >
+                      <TableBody>
+                        <TableRow>
+                          <TableCell>Media</TableCell>
+                          <TableCell>{mediaData?.media}</TableCell>
+                        </TableRow>
+                        <TableRow>
+                        <TableCell>Grau de confiança</TableCell>
+                        <TableCell>{mediaData?.grau}</TableCell>
+                        </TableRow>
+                        <TableRow>
+                        <TableCell>Desvio Padrãp</TableCell>
+                        <TableCell>{mediaData?.devspadrao}</TableCell>
+                        </TableRow>
+                        <TableRow>
+                        <TableCell>Tamanho Amostra</TableCell>
+                        <TableCell>{mediaData?.amostra}</TableCell>
+                        </TableRow>
+                        <TableRow>
+                        <TableCell>Erro Media(Em)</TableCell>
+                        <TableCell>{erroData?.erroMedia.toFixed(2)}</TableCell>
+                        </TableRow>
+                        <TableRow>
+                        <TableCell>Intervalo de confiança</TableCell>
+                        <TableCell>{erroData?.praMenos}</TableCell>
+                        <TableCell>&lt; μ &lt;</TableCell>
+                        <TableCell>{erroData?.praMais}</TableCell>
+                        </TableRow>
+                        
+                 
+                      </TableBody>
+                  </Table>
+             </div>
+           </section>
+                  
               )}
-    
-              {erroData ?(
-                <pre>{JSON.stringify(erroData,null,2)}</pre>
-              ):(
-                <p>erro data nao exixte</p>
-              )}
-          </section>
              
         </div>
       )
