@@ -1,0 +1,1 @@
+//TODO: criar as funções para cada conta perguntar para o renan e estudar sobre
