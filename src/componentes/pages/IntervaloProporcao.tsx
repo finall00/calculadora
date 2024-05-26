@@ -37,7 +37,7 @@ export default function IntervaloConfiacaProporcao (){
         grau:grauNumber,
         amostra:amostraNumber
       })
-    // console.log(sucessoNumber,grauNumber,amostraNumber)
+  
   }
 
     return(

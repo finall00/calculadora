@@ -89,7 +89,8 @@ export default function IntervaloMedia(){
             <Botao type="submit">Calcular</Botao>
             <Botao onClick={handleReset} type="button">Refazer</Botao>
           </form>
-              {mediaData ? (
+          <section>
+          {mediaData ? (
                   <pre>{JSON.stringify(mediaData)}</pre>
               ):(
                 <p>nada</p>
@@ -100,7 +101,8 @@ export default function IntervaloMedia(){
               ):(
                 <p>erro data nao exixte</p>
               )}
-              {/* <SelectComponent></SelectComponent> */}
+          </section>
+             
         </div>
       )
 }
