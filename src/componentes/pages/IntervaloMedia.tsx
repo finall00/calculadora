@@ -2,7 +2,7 @@ import { useState } from "react";
 import Botao from "../Button";
 import Input from "../Input";
 import { calculateMedia } from "@/lib/IntervaloConfiancaMedia";
-import { Table, TableBody, TableCell, TableHeader, TableRow } from "@/components/ui/table";
+import { Table, TableBody, TableCell,  TableRow } from "@/components/ui/table";
 
 
 export default function IntervaloMedia(){
@@ -21,6 +21,7 @@ export default function IntervaloMedia(){
         praMais:string;
       }>(null);
       
+
       function handleSubmit(e:React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
       
@@ -31,7 +32,7 @@ export default function IntervaloMedia(){
       
         if(!media || !grau || !desvp || !amostra){
           alert("Preencha todos os campos")
-          return
+          return 
         }
       
         const mediaNumber = parseFloat(media.replace(',','.'))
@@ -44,7 +45,6 @@ export default function IntervaloMedia(){
         if(isNaN(mediaNumber) || isNaN(grauNumber) || isNaN(desvpNumber) || isNaN(amostraNumber)){
            
           alert("digite numeros nos campos")
-            ClearData()
             return
         }
         setMediaData({
@@ -75,20 +75,26 @@ export default function IntervaloMedia(){
         setMediaData(null)
         setErroMedia(null)
       }
-      
-      function ClearData(){
-        setErroMedia(null)
+
+      function ResetData(){
         setMediaData(null)
+        setErroMedia(null)
       }
+
     return (
         <div>
           <form onSubmit={handleSubmit}>
-            <Input type="text" id="media" name="media" placeholder="Media"/>
-            <Input type="text" id="grau" name="grau" placeholder="Grau de confiança"/>
-            <Input type="text" id="desvp" name="desvp" placeholder="Desvio Padrão"/>
-            <Input type="text" name="amostra" placeholder="Amostra"/>
-            <Botao type="submit">Calcular</Botao>
-            <Botao onClick={handleReset} type="button">Refazer</Botao>
+            <Input disabled={!!erroData} type="text" id="media" name="media" placeholder="Media"/>
+            <Input disabled={!!erroData} type="text" id="grau" name="grau" placeholder="Grau de confiança"/>
+            <Input disabled={!!erroData} type="text" id="desvp" name="desvp" placeholder="Desvio Padrão"/>
+            <Input disabled={!!erroData} type="text" name="amostra" placeholder="Amostra"/>
+            {/* {erroData ? (
+                  <Botao onClick={ResetData} type="button">Refazer</Botao>
+            ):(
+              <Botao type="submit">Calcular</Botao>
+            )} */}
+              <Botao type="submit">Calcular</Botao>
+              <Botao onClick={handleReset} type="button">Refazer</Botao>
           </form>
           {erroData &&(
              <section className="mt-3">
@@ -121,8 +127,6 @@ export default function IntervaloMedia(){
                         <TableCell>&lt; μ &lt;</TableCell>
                         <TableCell>{erroData?.praMais}</TableCell>
                         </TableRow>
-                        
-                 
                       </TableBody>
                   </Table>
              </div>
