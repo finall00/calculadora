@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { calculateMedia } from "../../lib/CalcMedia";
+// import { calculateMedia } from "../../lib/CalcMedia";
+import { Table, TableBody, TableCell, TableRow } from "@/componentes/ui/table";
+import { calculateMedia } from "@/lib/IntervaloConfiancaMedia";
 import Botao from "../Button";
 import Input from "../Input";
-import { calculateMedia } from "@/lib/IntervaloConfiancaMedia";
-import { Table, TableBody, TableCell,  TableRow } from "@/components/ui/table";
 
 
 export default function IntervaloMedia(){
@@ -44,10 +44,10 @@ export default function IntervaloMedia(){
    
       
         if(isNaN(mediaNumber) || isNaN(grauNumber) || isNaN(desvpNumber) || isNaN(amostraNumber)){
-           
           alert("digite numeros nos campos")
             return
         }
+        
         setMediaData({
             media: mediaNumber,
             grau: grauNumber,

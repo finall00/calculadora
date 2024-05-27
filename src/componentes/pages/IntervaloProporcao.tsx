@@ -1,3 +1,5 @@
+import { Table, TableBody, TableCell, TableRow } from "@/componentes/ui/table";
+import { IntervaloConfProp } from "@/lib/IntervaloConfProporcao";
 import { useState } from "react";
 import Botao from "../Button";
 import Input from "../Input";
@@ -9,6 +11,14 @@ export default function IntervaloConfiacaProporcao (){
     grau:number;
     amostra:number;
   }>(null)
+
+  const [erroData ,setErroProp ] =useState<null | {
+    erroP:string;
+    sucessoM: number ;
+    erroMenos: string;
+    erroMais: string;
+  }>(null);
+  
 
   function handleSubmit(e:React.FormEvent<HTMLFormElement>){
     e.preventDefault()
@@ -37,7 +47,17 @@ export default function IntervaloConfiacaProporcao (){
         grau:grauNumber,
         amostra:amostraNumber
       })
+
+
+      const PropResult = IntervaloConfProp(sucessoNumber, grauNumber, amostraNumber);
   
+    setErroProp({
+      erroP : PropResult.erroP.toFixed(2),
+      sucessoM: PropResult.sucessoM,
+      erroMenos: PropResult.erroMenosRound,
+      erroMais: PropResult.erroMaisRound
+    })
+    console.log(erroData);
   }
 
     return(
@@ -48,12 +68,47 @@ export default function IntervaloConfiacaProporcao (){
             <Input type="text" id="amostra" name="amostra" placeholder="Tamanho da amostra"/>
             <Botao type="submit">Calcular</Botao>
 
-            {proporcaoData ?(
-              <pre>{JSON.stringify(proporcaoData)}</pre>
-            ):(
-              <p>nao existe dados</p>
-            )}
+           
+
+            {/* {erroData ?(<pre>{JSON.stringify(erroData)}</pre>):(<p>VAI SE FUDER RENAN FILHO DA PUTA</p>)} */}
         </form>
+        {erroData &&(
+             <section className="mt-3">
+             <div className="border border-neutral-300 rounded-lg p-4">
+             <Table >
+                      <TableBody>
+                        <TableRow>
+                          <TableCell>Sucesso</TableCell>
+                          <TableCell>{proporcaoData?.sucesso}</TableCell>
+                        </TableRow>
+                        <TableRow>
+                        <TableCell>1-P</TableCell>
+                        <TableCell>{erroData?.sucessoM}</TableCell>
+                        </TableRow>
+                        <TableRow>
+                        <TableCell>Tamanho da Amostra</TableCell>
+                        <TableCell>{proporcaoData?.amostra}</TableCell>
+                        </TableRow>
+                        <TableRow>
+                        <TableCell>Grau de confiança</TableCell>
+                        <TableCell>{proporcaoData?.grau}</TableCell>
+                        </TableRow>
+                        <TableRow>
+                        <TableCell>Erro Proporção(Em)</TableCell>
+                        <TableCell>{erroData?.erroP}</TableCell>
+                        </TableRow>
+                        <TableRow>
+                        <TableCell>Intervalo de confiança</TableCell>
+                        <TableCell>{erroData?.erroMenos}</TableCell>
+                        <TableCell>&lt; μ &lt;</TableCell>
+                        <TableCell>{erroData?.erroMais}</TableCell>
+                        </TableRow>
+                      </TableBody>
+                  </Table>
+             </div>
+           </section>
+                  
+              )}
       </div>
     )
 }
