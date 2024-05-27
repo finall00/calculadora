@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { calculateMedia } from "../../lib/CalcMedia";
 import Botao from "../Button";
 import Input from "../Input";
 import { calculateMedia } from "@/lib/IntervaloConfiancaMedia";
