@@ -68,7 +68,7 @@ export default function IntervaloMedia(){
       
         console.log(mediaData)
       
-        e.currentTarget.reset()
+        e.currentTarget.reset();
       }
       
       function handleReset(e : React.MouseEvent<HTMLButtonElement>){
@@ -88,7 +88,7 @@ export default function IntervaloMedia(){
             <Input disabled={!!erroData} type="text" id="media" name="media" placeholder="Media"/>
             <Input disabled={!!erroData} type="text" id="grau" name="grau" placeholder="Grau de confiança"/>
             <Input disabled={!!erroData} type="text" id="desvp" name="desvp" placeholder="Desvio Padrão"/>
-            <Input disabled={!!erroData} type="text" name="amostra" placeholder="Amostra"/>
+            <Input disabled={!!erroData} type="text" id="amostra" name="amostra" placeholder="Amostra"/>
             {/* {erroData ? (
                   <Botao onClick={ResetData} type="button">Refazer</Botao>
             ):(
@@ -97,6 +97,7 @@ export default function IntervaloMedia(){
               <Botao type="submit">Calcular</Botao>
               <Botao onClick={handleReset} type="button">Refazer</Botao>
           </form>
+
           {erroData &&(
              <section className="mt-3">
              <div className="border border-neutral-300 rounded-lg p-4">

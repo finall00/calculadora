@@ -58,19 +58,27 @@ export default function IntervaloConfiacaProporcao (){
       erroMais: PropResult.erroMaisRound
     })
     console.log(erroData);
+
+    e.currentTarget.reset();
+  }
+
+  function handleReset(e : React.MouseEvent<HTMLButtonElement>){
+    e.preventDefault
+    setProporcaoData(null)
+    setErroProp(null)
   }
 
     return(
       <div>
         <form onSubmit={handleSubmit}>
-            <Input type="text" id="sucesso" name="sucesso" placeholder="Digite o sucesso"/>
-            <Input type="text" id="grau" name="grau" placeholder="Grau de confiança"/>
-            <Input type="text" id="amostra" name="amostra" placeholder="Tamanho da amostra"/>
-            <Botao type="submit">Calcular</Botao>
-
+            <Input disabled={!! erroData} type="text" id="sucesso" name="sucesso" placeholder="Digite o sucesso"/>
+            <Input disabled={!! erroData} type="text" id="grau" name="grau" placeholder="Grau de confiança"/>
+            <Input disabled={!! erroData} type="text" id="amostra" name="amostra" placeholder="Tamanho da amostra"/>
+            <Botao   type="submit">Calcular</Botao>
+            <Botao onClick={handleReset} type="button">Refazer</Botao>
            
 
-            {/* {erroData ?(<pre>{JSON.stringify(erroData)}</pre>):(<p>VAI SE FUDER RENAN FILHO DA PUTA</p>)} */}
+            {/* {erroData ?(<pre>{JSON.stringify(erroData)}</pre>):()} */}
         </form>
         {erroData &&(
              <section className="mt-3">
