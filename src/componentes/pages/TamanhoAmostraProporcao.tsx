@@ -2,6 +2,8 @@ import { amostraProporcao } from "@/lib/CalculoAmostraProporcao";
 import { useState } from "react";
 import Botao from "../Button";
 import Input from "../Input";
+import SelectGrauConfianca from "../SelectGrauConfianca";
+import AlertComponent from "../ShowAlert";
 
 export default function TamanhoAmostraProporcao(){
 
@@ -17,6 +19,7 @@ export default function TamanhoAmostraProporcao(){
         sucessoMF: string;
       }>(null);
 
+      const [alertMessage, setAlertMessage] =useState<string|null>(null)
 
     function handleSubmit(e:React.FormEvent<HTMLFormElement>){
         e.preventDefault()
@@ -27,7 +30,7 @@ export default function TamanhoAmostraProporcao(){
         const { grau , sucesso , erro} = data;
 
         if(!grau || !erro){
-            alert("Preencha todos os campos")
+            setAlertMessage("Preencha todos os campos")
             return
         }
 
@@ -37,7 +40,7 @@ export default function TamanhoAmostraProporcao(){
         const erroNumber = parseFloat(erro.replace(',','.'))
 
         if(isNaN(grauNumber) || isNaN(sucessoNumber) || isNaN(erroNumber) ){
-            alert("digite numeros nos campos")
+            setAlertMessage("digite numeros nos campos")
               return
           }
 
@@ -63,16 +66,20 @@ export default function TamanhoAmostraProporcao(){
         setTamanhoAmostra(null)
       }
 
+      const handleAlertClose = () => {
+        setAlertMessage(''); // Reset the alert message when the dialog is closed
+    };
+
     return (
         <div>
             <form onSubmit={handleSubmit} >
-                <Input disabled={!! tamanhoAmostra} type="text" id="grau" name="grau" placeholder="Grau de confiança"></Input>
+                <SelectGrauConfianca disabled={!!tamanhoAmostra} id="grau" name="grau"/>
                 <Input disabled={!! tamanhoAmostra} type="text" id="sucesso" name="sucesso" placeholder="Sucesso (P)"></Input>
                 <Input disabled={!! tamanhoAmostra} type="text" id="erro" name="erro" placeholder="Erro (EP)"></Input>
                 <Botao type="submit">Calcular</Botao>
                 <Botao onClick={handleReset} type="button">Refazer</Botao>
             </form>
-            
+            {alertMessage && <AlertComponent message={alertMessage} onClose={handleAlertClose}/>}
             {amostraData?(
                 <pre>{JSON.stringify(amostraData)}</pre>
             ):(

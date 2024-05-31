@@ -4,6 +4,8 @@ import { Table, TableBody, TableCell, TableRow } from "@/componentes/ui/table";
 import { calculateMedia } from "@/lib/IntervaloConfiancaMedia";
 import Botao from "../Button";
 import Input from "../Input";
+import SelectGrauConfianca from "../SelectGrauConfianca";
+import AlertComponent from "../ShowAlert";
 
 
 export default function IntervaloMedia(){
@@ -22,7 +24,7 @@ export default function IntervaloMedia(){
         praMais:string;
       }>(null);
       
-
+    const [alertMessage, setAlertMessage] =useState<string|null>(null)
       function handleSubmit(e:React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
       
@@ -32,20 +34,36 @@ export default function IntervaloMedia(){
         const {media ,grau,desvp,amostra}  = data;
       
         if(!media || !grau || !desvp || !amostra){
-          alert("Preencha todos os campos")
+          setAlertMessage("Preencha todos os campos")
           return 
         }
-      
+        
+        let grauNumber;
+        switch (grau) {
+            case "90%":
+                grauNumber = 1.645;
+                break;
+            case "95%":
+                grauNumber = 1.96;
+                break;
+            case "99%":
+                grauNumber = 2.575;
+                break;
+            default:
+                alert("Escolha um grau de confiança válido");
+                return;
+        }
+
         const mediaNumber = parseFloat(media.replace(',','.'))
-        const grauNumber = parseFloat(grau.replace(',','.'))
+        // const grauNumber = parseFloat(grau.replace(',','.'))
         const desvpNumber = parseFloat(desvp.replace(',','.'))
         const amostraNumber = parseFloat(amostra.replace(',','.'))
       
-   
+        
       
         if(isNaN(mediaNumber) || isNaN(grauNumber) || isNaN(desvpNumber) || isNaN(amostraNumber)){
-          alert("digite numeros nos campos")
-            return
+          setAlertMessage("Escreva apenas numeros nos campos")
+          return 
         }
         
         setMediaData({
@@ -77,27 +95,27 @@ export default function IntervaloMedia(){
         setErroMedia(null)
       }
 
-      function ResetData(){
-        setMediaData(null)
-        setErroMedia(null)
-      }
+      // function ResetData(){
+      //   setMediaData(null)
+      //   setErroMedia(null)
+      // }
+
+      const handleAlertClose = () => {
+        setAlertMessage(''); // Reset the alert message when the dialog is closed
+    };
 
     return (
         <div>
           <form onSubmit={handleSubmit}>
             <Input disabled={!!erroData} type="text" id="media" name="media" placeholder="Media"/>
-            <Input disabled={!!erroData} type="text" id="grau" name="grau" placeholder="Grau de confiança"/>
+            {/* <Input disabled={!!erroData} type="text" id="grau" name="grau" placeholder="Grau de confiança"/> */}
             <Input disabled={!!erroData} type="text" id="desvp" name="desvp" placeholder="Desvio Padrão"/>
+            <SelectGrauConfianca disabled={!!erroData} id="grau" name="grau"/> 
             <Input disabled={!!erroData} type="text" id="amostra" name="amostra" placeholder="Amostra"/>
-            {/* {erroData ? (
-                  <Botao onClick={ResetData} type="button">Refazer</Botao>
-            ):(
-              <Botao type="submit">Calcular</Botao>
-            )} */}
-              <Botao type="submit">Calcular</Botao>
-              <Botao onClick={handleReset} type="button">Refazer</Botao>
+            <Botao type="submit">Calcular</Botao>
+            <Botao onClick={handleReset} type="button">Refazer</Botao>
           </form>
-
+            {alertMessage && <AlertComponent message={alertMessage} onClose={handleAlertClose}/>}
           {erroData &&(
              <section className="mt-3">
              <div className="border border-neutral-300 rounded-lg p-4">

@@ -3,6 +3,8 @@ import { IntervaloConfProp } from "@/lib/IntervaloConfProporcao";
 import { useState } from "react";
 import Botao from "../Button";
 import Input from "../Input";
+import SelectGrauConfianca from "../SelectGrauConfianca";
+import AlertComponent from "../ShowAlert";
 
 export default function IntervaloConfiacaProporcao (){
 
@@ -19,6 +21,7 @@ export default function IntervaloConfiacaProporcao (){
     erroMais: string;
   }>(null);
   
+  const [alertMessage, setAlertMessage] =useState<string|null>(null)
 
   function handleSubmit(e:React.FormEvent<HTMLFormElement>){
     e.preventDefault()
@@ -29,7 +32,7 @@ export default function IntervaloConfiacaProporcao (){
     const {sucesso, grau, amostra} =data
 
     if(!sucesso || !grau || !amostra){
-        alert("Prencha todos os campos")
+        setAlertMessage('Preencha todos os campos')
         return
     }
 
@@ -38,7 +41,7 @@ export default function IntervaloConfiacaProporcao (){
     const amostraNumber = parseFloat(amostra.replace(',','.'))
 
     if(isNaN(sucessoNumber) || isNaN(grauNumber) || isNaN(amostraNumber)){
-      alert("digite apenas numeros")
+      setAlertMessage("digite apenas numeros")
       return
     }
 
@@ -68,18 +71,21 @@ export default function IntervaloConfiacaProporcao (){
     setErroProp(null)
   }
 
+  const handleAlertClose = () => {
+    setAlertMessage(''); // Reset the alert message when the dialog is closed
+};
+
     return(
       <div>
         <form onSubmit={handleSubmit}>
             <Input disabled={!! erroData} type="text" id="sucesso" name="sucesso" placeholder="Digite o sucesso"/>
-            <Input disabled={!! erroData} type="text" id="grau" name="grau" placeholder="Grau de confiança"/>
+            <SelectGrauConfianca disabled={!!erroData} id="grau" name="grau"/>
             <Input disabled={!! erroData} type="text" id="amostra" name="amostra" placeholder="Tamanho da amostra"/>
             <Botao   type="submit">Calcular</Botao>
             <Botao onClick={handleReset} type="button">Refazer</Botao>
-           
-
             {/* {erroData ?(<pre>{JSON.stringify(erroData)}</pre>):()} */}
         </form>
+        {alertMessage && <AlertComponent message={alertMessage} onClose={handleAlertClose}/>}
         {erroData &&(
              <section className="mt-3">
              <div className="border border-neutral-300 rounded-lg p-4">

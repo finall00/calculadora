@@ -3,6 +3,8 @@
 import { useState } from "react";
 import Botao from "../Button";
 import Input from "../Input";
+import SelectGrauConfianca from "../SelectGrauConfianca";
+import AlertComponent from "../ShowAlert";
 
 export default function TamanhoAmostraMedia(){
 
@@ -17,6 +19,7 @@ export default function TamanhoAmostraMedia(){
         tamanhoRoud:number ;
       }>(null);
 
+      const [alertMessage, setAlertMessage] =useState<string|null>(null)
 
     function handleSubmit(e:React.FormEvent<HTMLFormElement>){
         e.preventDefault()
@@ -27,7 +30,7 @@ export default function TamanhoAmostraMedia(){
         const { grau , desvP , erro} = data;
 
         if(!grau || !desvP || !erro){
-            alert("Preencha todos os campos")
+            setAlertMessage("Preencha todos os campos")
             return
         }
 
@@ -37,7 +40,7 @@ export default function TamanhoAmostraMedia(){
         const erroNumber = parseFloat(erro.replace(',','.'))
 
         if(isNaN(grauNumber) || isNaN(desvPNumber) || isNaN(erroNumber) ){
-            alert("digite numeros nos campos")
+            setAlertMessage("digite numeros nos campos")
               return
           }
 
@@ -63,16 +66,20 @@ export default function TamanhoAmostraMedia(){
         setTamanhoAmostra(null)
       }
 
+      const handleAlertClose = () => {
+        setAlertMessage(''); // Reset the alert message when the dialog is closed
+    };
+
     return (
         <div>
             <form onSubmit={handleSubmit} >
-                <Input disabled={!! tamanhoAmostra} type="text" id="grau" name="grau" placeholder="Grau de confiança"></Input>
+                <SelectGrauConfianca disabled={!!tamanhoAmostra} id="grau" name="grau"/>
                 <Input disabled={!! tamanhoAmostra} type="text" id="desvP" name="desvP" placeholder="desvio Padrão"></Input>
                 <Input disabled={!! tamanhoAmostra} type="text" id="erro" name="erro" placeholder="Erro (EP)"></Input>
                 <Botao type="submit">Calcular</Botao>
                 <Botao onClick={handleReset} type="button">Refazer</Botao>
             </form>
-            
+            {alertMessage && <AlertComponent message={alertMessage} onClose={handleAlertClose}/>}
             {mediaData?(
                 <pre>{JSON.stringify(mediaData)}</pre>
             ):(
