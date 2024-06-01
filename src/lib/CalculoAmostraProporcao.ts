@@ -1,4 +1,5 @@
-export function amostraProporcao(grau: number, sucesso: number, erroP: number): {tmAmostra: number, tmAmostraRound: number, sucessoMF: string}{
+
+export function amostraProporcao(grau: number, sucesso: number, erroP: number): {tmAmostra: number, tmAmostraRound: number, sucessoMF: number}{
  
     let sucessoM = 1 - sucesso;
 
@@ -10,9 +11,9 @@ export function amostraProporcao(grau: number, sucesso: number, erroP: number): 
     tmAmostraRound++;
 
     console.log('Valor calculado:',tmAmostra );
-    console.log('Valor arredondado:', tmAmostraRound);
+    console.log('Valor arredondado:', Math.floor(tmAmostra));
 
-    const sucessoMF = sucessoM.toFixed(2);
+    const sucessoMF = Math.floor(sucesso);
 
     return {tmAmostra, tmAmostraRound, sucessoMF}
 }

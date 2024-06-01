@@ -35,9 +35,25 @@ export default function IntervaloConfiacaProporcao (){
         setAlertMessage('Preencha todos os campos')
         return
     }
+    
+    let grauNumber;
+        switch (grau) {
+            case "90%":
+                grauNumber = 1.645;
+                break;
+            case "95%":
+                grauNumber = 1.96;
+                break;
+            case "99%":
+                grauNumber = 2.575;
+                break;
+            default:
+                alert("Escolha um grau de confiança válido");
+                return;
+        }
 
     const sucessoNumber = parseFloat(sucesso.replace(',','.'))
-    const grauNumber = parseFloat(grau.replace(',','.'))
+    // const grauNumber = parseFloat(grau.replace(',','.'))
     const amostraNumber = parseFloat(amostra.replace(',','.'))
 
     if(isNaN(sucessoNumber) || isNaN(grauNumber) || isNaN(amostraNumber)){
@@ -55,7 +71,7 @@ export default function IntervaloConfiacaProporcao (){
       const PropResult = IntervaloConfProp(sucessoNumber, grauNumber, amostraNumber);
   
     setErroProp({
-      erroP : PropResult.erroP.toFixed(2),
+      erroP : PropResult.erroPRound,
       sucessoM: PropResult.sucessoM,
       erroMenos: PropResult.erroMenosRound,
       erroMais: PropResult.erroMaisRound

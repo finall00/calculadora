@@ -17,7 +17,7 @@ export default function TamanhoAmostraProporcao(){
       const [tamanhoAmostra ,setTamanhoAmostra  ] =useState<null | {
         tamanho:number;
         tamanhoRoud:number ;
-        sucessoMF: string;
+        sucessoMF: number;
       }>(null);
 
       const [alertMessage, setAlertMessage] =useState<string|null>(null)
@@ -123,7 +123,7 @@ export default function TamanhoAmostraProporcao(){
                                 </TableRow>
                                 <TableRow>
                                 <TableCell>Tamanho Amostra</TableCell>
-                                <TableCell>{tamanhoAmostra?.tamanho.toFixed(2)}</TableCell>
+                                <TableCell>{tamanhoAmostra?.tamanho}</TableCell>
                                 <TableCell>&lt; μ &lt;</TableCell>
                                 <TableCell>{tamanhoAmostra?.tamanhoRoud}</TableCell>
                                 </TableRow>

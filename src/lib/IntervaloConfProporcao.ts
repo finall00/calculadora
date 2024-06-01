@@ -1,8 +1,8 @@
-export function IntervaloConfProp(sucesso: number, grau: number, amostra: number): {erroP: number, sucessoM: number, erroMenosRound: string, erroMaisRound: string }{
+export function IntervaloConfProp(sucesso: number, grau: number, amostra: number): {erroPRound: string, sucessoM: number, erroMenosRound: string, erroMaisRound: string }{
 
     const sucessoM = 1 - sucesso;
     
-    const erroP = grau * (Math.sqrt((sucessoM * sucesso) / amostra));
+    let erroP = grau * (Math.sqrt((sucessoM * sucesso) / amostra));
 
     var erroMais =  sucesso + erroP;
     var erroMenos = sucesso - erroP;
@@ -12,7 +12,8 @@ export function IntervaloConfProp(sucesso: number, grau: number, amostra: number
     const erroMaisRound:string = erroMais.toFixed(2);
     const erroMenosRound:string = erroMenos.toFixed(2);
     
+    const erroPRound:string = erroP.toFixed(2);
 
-    return {erroP, sucessoM, erroMenosRound, erroMaisRound};
+    return {erroPRound, sucessoM, erroMenosRound, erroMaisRound};
 
 }
