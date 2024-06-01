@@ -90,7 +90,7 @@ export default function IntervaloMedia(){
       }
       
       function handleReset(e : React.MouseEvent<HTMLButtonElement>){
-        e.preventDefault
+        e.preventDefault()
         setMediaData(null)
         setErroMedia(null)
       }
@@ -105,21 +105,24 @@ export default function IntervaloMedia(){
     };
 
     return (
-        <div>
+        <div className="flex items-center  backdrop-filter backdrop-blur-md  bg-white/40 p-16 mt-2  rounded-xl shadow-md">
+          <div className="flex  gap-16">
           <form onSubmit={handleSubmit}>
             <Input disabled={!!erroData} type="text" id="media" name="media" placeholder="Media"/>
-            {/* <Input disabled={!!erroData} type="text" id="grau" name="grau" placeholder="Grau de confiança"/> */}
             <Input disabled={!!erroData} type="text" id="desvp" name="desvp" placeholder="Desvio Padrão"/>
             <SelectGrauConfianca disabled={!!erroData} id="grau" name="grau"/> 
             <Input disabled={!!erroData} type="text" id="amostra" name="amostra" placeholder="Amostra"/>
-            <Botao type="submit">Calcular</Botao>
-            <Botao onClick={handleReset} type="button">Refazer</Botao>
+            {erroData?(
+              <Botao className="w-full" onClick={handleReset} type="button">Refazer</Botao>
+            ): (
+              <Botao className="w-full" type="submit">Calcular</Botao>
+            )}
           </form>
             {alertMessage && <AlertComponent message={alertMessage} onClose={handleAlertClose}/>}
           {erroData &&(
-             <section className="mt-3">
-             <div className="border border-neutral-300 rounded-lg p-4">
-             <Table >
+             <section className="flex items-center border border-neutral-300 rounded-lg">
+             <div className="bg-red-300 ">
+             <Table className="" >
                       <TableBody>
                         <TableRow>
                           <TableCell>Media</TableCell>
@@ -154,6 +157,8 @@ export default function IntervaloMedia(){
                   
               )}
              
-        </div>
+ 
+          </div>
+                 </div>
       )
 }
