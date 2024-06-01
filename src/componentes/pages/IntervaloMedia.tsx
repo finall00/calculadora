@@ -94,12 +94,6 @@ export default function IntervaloMedia(){
         setMediaData(null)
         setErroMedia(null)
       }
-
-      // function ResetData(){
-      //   setMediaData(null)
-      //   setErroMedia(null)
-      // }
-
       const handleAlertClose = () => {
         setAlertMessage(''); // Reset the alert message when the dialog is closed
     };
@@ -120,35 +114,35 @@ export default function IntervaloMedia(){
           </form>
             {alertMessage && <AlertComponent message={alertMessage} onClose={handleAlertClose}/>}
           {erroData &&(
-             <section className="flex items-center border border-neutral-300 rounded-lg">
-             <div className="bg-red-300 ">
+             <section className="flex items-center border border-neutral-400/40 rounded-lg">
+             <div className="m-6">
              <Table className="" >
-                      <TableBody>
-                        <TableRow>
+                      <TableBody className="text-base ">
+                        <TableRow className="">
                           <TableCell>Media</TableCell>
                           <TableCell>{mediaData?.media}</TableCell>
                         </TableRow>
                         <TableRow>
-                        <TableCell>Grau de confiança</TableCell>
-                        <TableCell>{mediaData?.grau}</TableCell>
+                          <TableCell>Grau de confiança</TableCell>
+                          <TableCell>{mediaData?.grau}</TableCell>
                         </TableRow>
                         <TableRow>
-                        <TableCell>Desvio Padrãp</TableCell>
-                        <TableCell>{mediaData?.devspadrao}</TableCell>
+                          <TableCell>Desvio Padrãp</TableCell>
+                          <TableCell>{mediaData?.devspadrao}</TableCell>
                         </TableRow>
                         <TableRow>
-                        <TableCell>Tamanho Amostra</TableCell>
-                        <TableCell>{mediaData?.amostra}</TableCell>
+                          <TableCell>Tamanho Amostra</TableCell>
+                          <TableCell>{mediaData?.amostra}</TableCell>
                         </TableRow>
                         <TableRow>
-                        <TableCell>Erro Media(Em)</TableCell>
-                        <TableCell>{erroData?.erroMedia.toFixed(2)}</TableCell>
+                          <TableCell>Erro Media(Em)</TableCell>
+                          <TableCell>{erroData?.erroMedia.toFixed(2)}</TableCell>
                         </TableRow>
                         <TableRow>
-                        <TableCell>Intervalo de confiança</TableCell>
-                        <TableCell>{erroData?.praMenos}</TableCell>
-                        <TableCell>&lt; μ &lt;</TableCell>
-                        <TableCell>{erroData?.praMais}</TableCell>
+                          <TableCell>Intervalo de confiança</TableCell>
+                          <TableCell>{erroData?.praMenos}</TableCell>
+                          <TableCell>&lt; μ &lt;</TableCell>
+                          <TableCell>{erroData?.praMais}</TableCell>
                         </TableRow>
                       </TableBody>
                   </Table>

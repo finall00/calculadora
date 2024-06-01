@@ -2,7 +2,8 @@ export function amostraMedia(grau: number, desvP: number, erroP: number): {amost
 
     const amostraM = Math.pow(((grau * desvP) / erroP),2);
 
-    const amostraMRound = Math.round(amostraM);
+    let amostraMRound = Math.floor(amostraM);
+    amostraMRound++;
 
 return {amostraM, amostraMRound}
 // (( grau * desvP)  / erroP)^ 2

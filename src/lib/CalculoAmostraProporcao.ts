@@ -6,8 +6,11 @@ export function amostraProporcao(grau: number, sucesso: number, erroP: number): 
 
     //(P * (1-p) * grau )/  erro ^2
 
-    const tmAmostraRound = Math.round(tmAmostra);
+    let tmAmostraRound = Math.floor(tmAmostra)
+    tmAmostraRound++;
 
+    console.log('Valor calculado:',tmAmostra );
+    console.log('Valor arredondado:', tmAmostraRound);
 
     const sucessoMF = sucessoM.toFixed(2);
 

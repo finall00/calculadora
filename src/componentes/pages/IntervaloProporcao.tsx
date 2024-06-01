@@ -66,7 +66,7 @@ export default function IntervaloConfiacaProporcao (){
   }
 
   function handleReset(e : React.MouseEvent<HTMLButtonElement>){
-    e.preventDefault
+    e.preventDefault()
     setProporcaoData(null)
     setErroProp(null)
   }
@@ -76,21 +76,25 @@ export default function IntervaloConfiacaProporcao (){
 };
 
     return(
-      <div>
+      <div className="flex items-center  backdrop-filter backdrop-blur-md  bg-white/40 p-16 mt-2  rounded-xl shadow-md">
+        <div className="flex  gap-16">
         <form onSubmit={handleSubmit}>
             <Input disabled={!! erroData} type="text" id="sucesso" name="sucesso" placeholder="Digite o sucesso"/>
             <SelectGrauConfianca disabled={!!erroData} id="grau" name="grau"/>
             <Input disabled={!! erroData} type="text" id="amostra" name="amostra" placeholder="Tamanho da amostra"/>
-            <Botao   type="submit">Calcular</Botao>
-            <Botao onClick={handleReset} type="button">Refazer</Botao>
-            {/* {erroData ?(<pre>{JSON.stringify(erroData)}</pre>):()} */}
+            {erroData?(
+              <Botao className="w-full" onClick={handleReset} type="button">Refazer</Botao>
+            ): (
+              <Botao className="w-full" type="submit">Calcular</Botao>
+            )}
         </form>
+        
         {alertMessage && <AlertComponent message={alertMessage} onClose={handleAlertClose}/>}
         {erroData &&(
-             <section className="mt-3">
-             <div className="border border-neutral-300 rounded-lg p-4">
+             <section className="flex items-center border border-neutral-400/40 rounded-lg">
+             <div className="m-6">
              <Table >
-                      <TableBody>
+                      <TableBody className="text-base">
                         <TableRow>
                           <TableCell>Sucesso</TableCell>
                           <TableCell>{proporcaoData?.sucesso}</TableCell>
@@ -123,6 +127,8 @@ export default function IntervaloConfiacaProporcao (){
            </section>
                   
               )}
+        </div>
+
       </div>
     )
 }
