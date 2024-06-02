@@ -13,7 +13,7 @@ export function amostraProporcao(grau: number, sucesso: number, erroP: number): 
     console.log('Valor calculado:',tmAmostra );
     console.log('Valor arredondado:', Math.floor(tmAmostra));
 
-    const sucessoMF = Math.floor(sucesso);
+    const sucessoMF =sucessoM;
 
     return {tmAmostra, tmAmostraRound, sucessoMF}
 }

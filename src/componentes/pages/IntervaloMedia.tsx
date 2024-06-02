@@ -119,7 +119,7 @@ export default function IntervaloMedia(){
              <Table className="" >
                       <TableBody className="text-base ">
                         <TableRow className="">
-                          <TableCell>Media</TableCell>
+                          <TableCell>Média</TableCell>
                           <TableCell>{mediaData?.media}</TableCell>
                         </TableRow>
                         <TableRow>
@@ -127,7 +127,7 @@ export default function IntervaloMedia(){
                           <TableCell>{mediaData?.grau}</TableCell>
                         </TableRow>
                         <TableRow>
-                          <TableCell>Desvio Padrãp</TableCell>
+                          <TableCell>Desvio Padrãap</TableCell>
                           <TableCell>{mediaData?.devspadrao}</TableCell>
                         </TableRow>
                         <TableRow>

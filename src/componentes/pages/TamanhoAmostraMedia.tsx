@@ -115,10 +115,6 @@ export default function TamanhoAmostraMedia(){
                                 <TableCell>{mediaData?.grau}</TableCell>
                                 </TableRow>
                                 <TableRow>
-                                <TableCell>Desvio Padrãp</TableCell>
-                                <TableCell>{mediaData?.desvP}</TableCell>
-                                </TableRow>
-                                <TableRow>
                                 <TableCell>Erro media(Em)</TableCell>
                                 <TableCell>{mediaData?.erro}</TableCell>
                                 </TableRow>
